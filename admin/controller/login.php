@@ -1,5 +1,5 @@
 <?php
-require('/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 session_start();
 if (isset($_POST['login'])) 
 {

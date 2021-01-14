@@ -3,17 +3,17 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header('Location: controller/login.php');
 }
-require '../config.php';
+require '../databases/config.php';
 $sql1 = "Select * from about_me";
 $about_me = mysqli_fetch_array(mysqli_query($conn, $sql1));
 $sql2 = "Select * from message";
-$message = mysqli_fetch_array(mysqli_query($conn, $sql2));
+$message = mysqli_fetch_all(mysqli_query($conn, $sql2));
 $sql3 = "Select * from services";
 $services = mysqli_fetch_all(mysqli_query($conn, $sql3));
 $sql4 = "Select * from educaton";
-$education = mysqli_fetch_array(mysqli_query($conn, $sql4));
+$education = mysqli_fetch_all(mysqli_query($conn, $sql4));
 $sql5 = "Select * from work_skills";
-$workskill = mysqli_fetch_array(mysqli_query($conn, $sql5));
+$workskill = mysqli_fetch_all(mysqli_query($conn, $sql5));
 $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
 ?>
 <!DOCTYPE html>
@@ -84,7 +84,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
     <!-- Mobile Header -->
     <div class="responsive-header">
       <div class="responsive-header-name">
-        <img class="responsive-logo" src="images/avatar.jpeg" alt="" />
+        <img class="responsive-logo" src="<?php echo "../".$about_me[9] ?>" alt="" />
         <?php echo $about_me[1] ?>
       </div>
       <span class="responsive-icon"><i class="fas fa-bars"></i></span>
@@ -114,7 +114,6 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                   </div>
                   <div class="home-buttons">
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#changehomebg">Change Backgound</button>
-                    <!-- <button type="button" class="btn btn-primary mt-3 ml-3" data-toggle="modal" data-target="#exampleModal1">Change Title</button> -->
                   </div>
                 </div>
               </div>
@@ -151,38 +150,6 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
             </div>
           </div>
         </div>
-        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="container">
-                  <div class="panel panel-success">
-                    <div class="panel-body">
-                      <form action="" method="POST" role="form">
-                        <legend>Change Title</legend>
-                        <div class="form-group">
-                          <input type="text" name="home-txt1" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                        </div>
-                        <div class="form-group">
-                          <input type="text" name="home-txt2" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                        </div>
-                        <div class="form-group">
-                          <button id="change" name="change" class="btn btn-primary">Save</button>
-                        </div>
-                      </form>
-                      <div class="status"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
         <div class="modal fade" id="changeavatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -281,7 +248,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                 </div>
               </div>
               <div class='loading text-primary'>Saved</div>
-              <button class="btn btn-primary mb-4" id="editaboutme">Edit</button>
+              <button class="btn btn-primary mb-4 ml-5" id="editaboutme">Edit Profile</button>
               <div class="row">
                 <form action="" method="POST" role="form" id="formaboutme" class="col-md-6">
                   <div class="form-group">
@@ -290,8 +257,6 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                   </div>
                 </form>
                 <form action="" method="POST" role="form" id="formprofile" class="col-md-6">
-                  <!-- <div class="form-group">
-                    Birthday: <input type="text" name="" id="birth" placeholder="Birthday" class="w-25 ml-2" value="<?php echo $about_me[3] ?>" ></div> -->
                   <div class="form-group">
                     Email: <input type="text" name="" id="myemail" placeholder="Email" class="w-75 ml-3" value="<?php echo $about_me[6] ?>"></div>
                   <div class="form-group">
@@ -304,6 +269,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                 </form>
               </div>
               <button id="saveaboutme" name="" class="btn btn-primary mb-5 ml-5">Save</button>
+              <button id="backaboutme" name="" class="btn btn-danger mb-5 ml-2">Back</button>
               <!-- /about me -->
 
               <!-- services -->
@@ -314,12 +280,21 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                     My Services
                   </h4>
                 </div>
-                <button id="editservices" name="" class="btn btn-primary mb-5">Edit</button>
+                <button id="addservices" name="" class="btn btn-primary mb-5 ml-4">Add Services</button>
+                <form action="" method="POST" role="form" id="formaddsv" class="col-md-6">
+                  <div class="form-group">
+                    Title: <input type="text" name="" id="title_add" placeholder="Title" class=" ml-3 " value=""></div>
+                  <div class="form-group">
+                    Content: <textarea type="text" name="" id="content_add" placeholder="Content" class=" ml-3" value="" style="height: 200px;"></textarea></div>
+                </form>
+                <button id="saveservices" name="" class="btn btn-primary mb-5 ml-5">Save</button>
+                <button id="backservices" name="" class="btn btn-danger mb-5 ml-2">Back</button>
+
                 <div class="row">
                 <?php
                       foreach ($services as $row) {
                       ?>
-                  <div class=" col-md-6 ">
+                  <div class=" col-md-6 " id="sv_<?php echo $row[0] ?>">
                     <div class="services-list">
                       <!-- Service Item 1 -->
                       <div class="service-block">
@@ -334,26 +309,31 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                     </div>
                   </div>
                   <?php } ?>
+                  <button id="editservices" name="" class="btn btn-primary mb-5 ml-5">Edit Services</button>
                   <table class="table table-striped table-inverse table-responsive tblservice ml-5" border="1">
                     <thead class="thead-inverse">
                       <tr>
                         <th class="text-center">Title</th>
                         <th class="w-100 text-center">Content</th>
+                        <th class=" text-center">Delete</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
+                    <?php
                       foreach ($services as $row) {
                       ?>
-                        <tr>
+                        <tr id="rowsv_<?php echo $row[0] ?>">
                           <td scope='row'>
                             <div contentEditable='true' class='editsv' id="title_<?php echo $row[0] ?>"> <?php echo $row[1] ?> </div>
                           </td>
                           <td >
                             <div  contenteditable="true" class='editsv' id="content_<?php echo $row[0] ?>"> <?php echo $row[2] ?> </div>
                           </td>
+                          <td class="text-center">
+                          <i class="fas fa-trash-alt deletesv" id="delete_<?php echo $row[0] ?>"></i>
+                          </td>
                         </tr>
-                      <?php } ?>
+                        <?php } ?>
                     </tbody>
                   </table>
                 </div>
@@ -387,46 +367,22 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                       </h4>
                     </div>
                     <div class="main-timeline">
+                      <?php foreach($education as $row){ ?>
                       <div class="timeline currecnt">
                         <div class="timeline-icon">
                           <img src="images/resume/1.png" alt="">
                         </div>
                         <div class="timeline-content">
-                          <span class="date">Apr 2015 - Till Now</span>
-                          <h5 class="title">Software Engineer</h5>
+                          <span class="date"><?php echo $row[3] ?></span>
+                          <h5 class="title"><?php echo $row[1] ?></h5>
                           <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-
+                          <?php echo $row[2] ?>
                           </p>
                         </div>
                       </div>
+                      <?php } ?>
 
-                      <div class="timeline">
-                        <div class="timeline-icon">
-                          <img src="images/resume/1.png" alt="">
-                        </div>
-                        <div class="timeline-content">
-                          <span class="date">Apr 2016 - Mar 2017</span>
-                          <h5 class="title">Web Developer</h5>
-                          <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-                          </p>
-                        </div>
-                      </div>
 
-                      <div class="timeline">
-                        <div class="timeline-icon">
-                          <img src="images/resume/1.png" alt="">
-                        </div>
-                        <div class="timeline-content">
-                          <span class="date">May 2017 - Mar 2018</span>
-                          <h5 class="title">Frontend Developer</h5>
-                          <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-
-                          </p>
-                        </div>
-                      </div>
 
                     </div>
                   </div>

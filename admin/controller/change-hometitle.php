@@ -1,5 +1,5 @@
 <?php
-require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 if(isset($_POST['change'])){
     $txt1=$_POST['home-txt1'];
     $txt2=$_POST['home-txt2'];

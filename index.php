@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require 'databases/config.php';
 $sql1 = "Select * from about_me";
 $about_me = mysqli_fetch_array(mysqli_query($conn, $sql1));
 $sql2 = "Select * from message";
@@ -60,7 +60,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
             <li><a class="active" href="#home"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="#about-me"><i class="fas fa-user-tie"></i> About Me</a></li>
             <li><a href="#resume"><i class="fas fa-award"></i> Resume</a></li>
-            <li><a href="#portfolio"><i class="fas fa-business-time"></i> Project</a></li>
+            <li><a href="#portfolio"><i class="fas fa-business-time"></i> Portfolio</a></li>
             <li><a href="#blog"><i class="fas fa-book-reader"></i> Blog</a></li>
             <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
           </ul>
@@ -77,7 +77,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
     <!-- Mobile Header -->
     <div class="responsive-header">
       <div class="responsive-header-name">
-        <img class="responsive-logo" src="images/avatar.jpeg" alt="" />
+        <img class="responsive-logo" src="<?php echo $about_me[9] ?>" alt="" />
         <?php echo $about_me[1] ?>
       </div>
       <span class="responsive-icon"><i class="fas fa-bars"></i></span>

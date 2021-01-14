@@ -1,5 +1,5 @@
 <?php
-require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 if(isset($_POST['name']) || isset($_POST['aboutme'])){
     $name=$_POST['name'];
     $text=$_POST['aboutme'];

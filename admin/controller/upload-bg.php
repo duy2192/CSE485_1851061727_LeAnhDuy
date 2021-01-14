@@ -1,5 +1,5 @@
 <?php
-require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 if ( !empty($_FILES['file'])) {
   $duoi = explode('.', $_FILES['file']['name']); // tách chuỗi khi gặp dấu .
   $duoi = $duoi[(count($duoi) - 1)]; //lấy ra đuôi file

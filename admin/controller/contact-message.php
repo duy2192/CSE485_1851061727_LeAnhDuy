@@ -1,5 +1,5 @@
 <?php
-require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 if(isset($_POST['ctemail'])){
     $name=$_POST['ctname'];
     $email=$_POST['ctemail'];

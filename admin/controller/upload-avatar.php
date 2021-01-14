@@ -1,5 +1,5 @@
 <?php
-require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/config.php');
+require( '/xampp/htdocs/CSE485_1851061727_LeAnhDuy/databases/config.php');
 if ( !empty($_FILES['file'])) {
   $duoi = explode('.', $_FILES['file']['name']); // tách chuỗi khi gặp dấu .
   $duoi = $duoi[(count($duoi) - 1)]; //lấy ra đuôi file
@@ -8,7 +8,7 @@ if ( !empty($_FILES['file'])) {
     $sql="select avatar from about_me ";
     $result=mysqli_fetch_array(mysqli_query($conn,$sql));
       if (move_uploaded_file($_FILES['file']['tmp_name'], 'D:/xampp/htdocs/CSE485_1851061727_LeAnhDuy/images/home/' . $filename)) {
-        //   unlink("D:/xampp/htdocs/CSE485_1851061727_LeAnhDuy/$result[0]");  
+          unlink("D:/xampp/htdocs/CSE485_1851061727_LeAnhDuy/$result[0]");  
           $sql1="Update about_me set avatar='images/home/$filename'";
           if (mysqli_query($conn,$sql1)) {
             die("images/home/$filename"); 

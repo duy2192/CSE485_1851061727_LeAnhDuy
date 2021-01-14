@@ -88,13 +88,14 @@ $(document).ready(function () {
     $('#formaboutme').hide();
     $('#formprofile').hide();
     $('#saveaboutme').hide();
+    $('#backaboutme').hide();
     $('.loading').hide();
     $('#editaboutme').click(function () {
         $('#formaboutme').show("slow");
         $('#formprofile').show("slow");
         $('#saveaboutme').show("slow");
         $('#editaboutme').hide();
-
+        $('#backaboutme').show();
     })
     $('#saveaboutme').click(function () {
 
@@ -104,7 +105,6 @@ $(document).ready(function () {
             data: {
                 name: $('#myname').val(),
                 aboutme: $('#aboutme').val(),
-                // day: $('#birth').val(),
                 phone: $('#myphone').val(),
                 email: $('#myemail').val(),
                 address: $('#myaddress').val(),
@@ -117,7 +117,7 @@ $(document).ready(function () {
                     $('#formprofile').hide("slow");
                     $('#saveaboutme').hide("slow");
                     $('#editaboutme').show("slow");
-
+                    $('#backaboutme').hide();
                     $('#txtname').html(''+$('#myname').val()+'');
                     $('#txtabme').html(''+$('#aboutme').val()+'');
                     $('#txtemail').html(''+$('#myemail').val()+'');
@@ -134,7 +134,17 @@ $(document).ready(function () {
             }
         })
     });
+    $('#backaboutme').click(function(){
+        $('#formaboutme').hide("slow");
+        $('#formprofile').hide("slow");
+        $('#saveaboutme').hide("slow");
+        $('#editaboutme').show("slow");
+        $('#backaboutme').hide();
+    })
     $('.tblservice').hide();
+    $('#formaddsv').hide();
+    $('#saveservices').hide();
+    $('#backservices').hide();
     $('#editservices').click(function(){
         $('.tblservice').toggle(500);
     })  
@@ -142,7 +152,7 @@ $(document).ready(function () {
           $(this).addClass('editMode');
         });
     
-        $(".editsv").keyup(function(){
+    $(".editsv").keyup(function(){
           $(this).removeClass("editMode");
           var id = this.id;
           var split_id = id.split("_");
@@ -163,5 +173,79 @@ $(document).ready(function () {
              }
            });
         })
+    $('#addservices').click(function(){
+            $('#formaddsv').show(500);
+            $('#saveservices').show();
+            $('#addservices').hide();
+            $('#backservices').show();
 
+
+        })
+    $('#backservices').click(function(){
+            $('#saveservices').hide();
+            $('#addservices').show(500);
+            $('#backservices').hide();
+            $('#formaddsv').hide(500);
+        })
+    $('#saveservices').click(function(){
+
+
+        })
+        $('.deletesv').click(function(){
+            var id = this.id;
+            var split_id = id.split("_");
+            var del = split_id[1];
+            $.ajax({
+                url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/del-services.php?id='+del+'',
+                type: 'get',
+                success:function(res){
+                    if(confirm('Are you sure?')==true){
+
+                    if(res=='1'){
+                        $("tr#rowsv_"+del+"").remove();
+                        $("div#sv_"+del+"").remove();
+
+                    }
+                    else {
+                        alert('Error')
+                    }
+                }
+                    else{
+                        return false;
+                    }
+
+
+                }
+            })
+        })
+    
+    $('#saveservices').click(function(){
+        $.ajax({
+            url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/add-services.php',
+            type: 'post',
+            dataType: 'text',
+            data:{
+                title: $('#title_add').val(),
+                content: $('#content_add').val()
+            },
+            success:function(res){
+                if(res=='1'){
+                    alert('Saved');
+                    $('#title_add').val('');
+                    $('#content_add').val('');
+                    $('#saveservices').hide();
+                    $('#addservices').show(500);
+                    $('#backservices').hide();
+                    $('#formaddsv').hide(500);
+                }
+                else if(res=='0'){
+                    alert('Error')
+                }
+                else{
+                    alert(res)
+                }
+            }
+        })
+
+    })
 })
