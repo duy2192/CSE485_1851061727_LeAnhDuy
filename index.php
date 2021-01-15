@@ -3,13 +3,13 @@ require 'databases/config.php';
 $sql1 = "Select * from about_me";
 $about_me = mysqli_fetch_array(mysqli_query($conn, $sql1));
 $sql2 = "Select * from message";
-$message = mysqli_fetch_array(mysqli_query($conn, $sql2));
+$message = mysqli_fetch_all(mysqli_query($conn, $sql2));
 $sql3 = "Select * from services";
 $services = mysqli_fetch_all(mysqli_query($conn, $sql3));
-$sql4 = "Select * from educaton";
-$education = mysqli_fetch_array(mysqli_query($conn, $sql4));
-$sql5 = "Select * from work_skills";
-$workskill = mysqli_fetch_array(mysqli_query($conn, $sql5));
+$sql4 = "Select * from education";
+$education = mysqli_fetch_all(mysqli_query($conn, $sql4));
+$sql5 = "Select * from work_skills ORDER by skill DESC";
+$workskill = mysqli_fetch_all(mysqli_query($conn, $sql5));
 $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
 ?>
 <!DOCTYPE html>
@@ -66,7 +66,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
           </ul>
           <!-- /Main menu -->
           <!-- Copyrights -->
-          <div class="copyrights">© 2019 All rights reserved.</div>
+          <div class="copyrights">You Know Who</div>
           <!-- / Copyrights -->
         </div>
         <!-- /Navigation -->
@@ -238,54 +238,24 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                       </h4>
                     </div>
                     <div class="main-timeline">
-                      <div class="timeline currecnt">
-                        <div class="timeline-icon">
-                          <img src="images/resume/1.png" alt="">
+                      <?php foreach ($education as $row) { ?>
+                        <div class="timeline currecnt">
+                          <div class="timeline-icon">
+                            <img src="images/resume/1.png" alt="">
+                          </div>
+                          <div class="timeline-content">
+                            <span class="date"><?php echo $row[3] ?></span>
+                            <h5 class="title"><?php echo $row[1] ?></h5>
+                            <p class="description">
+                              <?php echo $row[2] ?>
+                            </p>
+                          </div>
                         </div>
-                        <div class="timeline-content">
-                          <span class="date">Apr 2015 - Till Now</span>
-                          <h5 class="title">Software Engineer</h5>
-                          <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-
-                          </p>
-                        </div>
-                      </div>
-
-                      <div class="timeline">
-                        <div class="timeline-icon">
-                          <img src="images/resume/1.png" alt="">
-                        </div>
-                        <div class="timeline-content">
-                          <span class="date">Apr 2016 - Mar 2017</span>
-                          <h5 class="title">Web Developer</h5>
-                          <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div class="timeline">
-                        <div class="timeline-icon">
-                          <img src="images/resume/1.png" alt="">
-                        </div>
-                        <div class="timeline-content">
-                          <span class="date">May 2017 - Mar 2018</span>
-                          <h5 class="title">Frontend Developer</h5>
-                          <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
-
-                          </p>
-                        </div>
-                      </div>
-
+                      <?php } ?>
                     </div>
                   </div>
                   <!-- /Education History -->
 
-                  <!-- Skills -->
-                  <!-- <div class="pb-30 pt-30">
-                    <div class="row list-skills"> -->
                   <!-- Work Skills -->
                   <div>
                     <div class="special-block-bg">
@@ -296,34 +266,15 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                         </h4>
                       </div>
                       <div class="skills-items skills-progressbar">
-                        <div class="skill-item">
-                          <h4>PHP</h4>
-                          <div class="progress">
-                            <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
+                        <?php foreach ($workskill as $row) { ?>
+                          <div class="skill-item">
+                            <h4><?php echo $row[1] ?></h4>
+                            <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: <?php echo $row[2] . "%" ?>;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
+                            </div>
+                            <span><?php echo $row[2] . "%" ?></span>
                           </div>
-                          <span>95%</span>
-                        </div>
-                        <div class="skill-item">
-                          <h4>Java</h4>
-                          <div class="progress">
-                            <div class="progress-bar wow fadeInLeft" data-progress="85%" style="width: 85%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
-                          </div>
-                          <span>85%</span>
-                        </div>
-                        <div class="skill-item">
-                          <h4>C#</h4>
-                          <div class="progress">
-                            <div class="progress-bar wow fadeInLeft" data-progress="75%" style="width: 75%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
-                          </div>
-                          <span>75%</span>
-                        </div>
-                        <div class="skill-item">
-                          <h4>C++</h4>
-                          <div class="progress">
-                            <div class="progress-bar wow fadeInLeft" data-progress="70%" style="width: 70%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
-                          </div>
-                          <span>70%</span>
-                        </div>
+                        <?php } ?>
                       </div>
                     </div>
                   </div>
@@ -456,8 +407,9 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
         <!-- /Portfolio Subpage -->
 
         <!-- Blog Subpage -->
-        <section id="blog" class="sub-page">
-          <div class="sub-page-inner">
+        <section id="blog" class="sub-page bg-info" >
+        <!-- <h3 class="mt-5 text-center">Coming Soon!</h3> -->
+          <!-- <div class="sub-page-inner">
             <div class="section-title">
               <div class="main-title">
                 <div class="title-main-page">
@@ -597,7 +549,8 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                 <a href="#" class="btn btn-next">next <i class="lnr lnr-arrow-right"></i></a>
               </div>
             </div>
-          </div>
+          </div> -->
+          <!-- </div> -->
         </section>
         <!-- /Blog Subpage -->
 

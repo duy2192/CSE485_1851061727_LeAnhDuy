@@ -6,12 +6,14 @@ if (isset($_POST['title']) && isset($_POST['content'])) {
     if (!empty($title) && !empty($content)) {
         $sql = "Insert into services  values (null,'$title','$content')";
         if (mysqli_query($conn, $sql)) {
-            die('1');
+            $sql="Select max(id) from services";
+            $id=mysqli_fetch_array(mysqli_query($conn,$sql));
+            die("$id[0]");
         } else {
             die('0');
         }
     }
     else{
-        die('Please enter your information!');
+        die('2');
     }
 }
