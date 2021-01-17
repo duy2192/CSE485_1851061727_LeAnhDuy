@@ -15,6 +15,9 @@ $education = mysqli_fetch_all(mysqli_query($conn, $sql4));
 $sql5 = "Select * from work_skills ORDER by skill DESC";
 $workskill = mysqli_fetch_all(mysqli_query($conn, $sql5));
 $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
+$services = mysqli_fetch_all(mysqli_query($conn, $sql3));
+$sql6 = "Select * from projects";
+$projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,12 +71,12 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
             <li><a href="#about-me"><i class="fas fa-user-tie"></i> About Me</a></li>
             <li><a href="#resume"><i class="fas fa-award"></i> Resume</a></li>
             <li><a href="#portfolio"><i class="fas fa-business-time"></i> Portfolio</a></li>
-            <li><a href="#blog"><i class="fas fa-book-reader"></i> Blog</a></li>
-            <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
+            <!-- <li><a href="#blog"><i class="fas fa-book-reader"></i> Blog</a></li> -->
+            <li><a href="#contact"><i class="fas fa-paper-plane"></i> Message</a></li>
           </ul>
           <!-- /Main menu -->
           <!-- Copyrights -->
-          <div class="copyrights">You Know Who</div>
+          <!-- <div class="copyrights">You Know Who</div> -->
           <!-- / Copyrights -->
         </div>
         <!-- /Navigation -->
@@ -419,7 +422,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                       <?php foreach ($education as $row) { ?>
                         <div class="timeline currecnt" id="edu_<?php echo $row[0] ?>">
                           <div class="timeline-icon">
-                            <img src="images/resume/1.png" alt="">
+                            <img src="../images/resume.png" alt="">
                           </div>
                           <div class="timeline-content">
                             <span class="date" id="etitle_<?php echo $row[0] ?>"><?php echo $row[3] ?></span>
@@ -455,7 +458,7 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                         <button id="saveskill" name="" class="btn btn-primary mb-5 ml-5">Save</button>
                         <button id="backskill" name="" class="btn btn-danger mb-5 ml-2">Back</button>
 
-                        <table class="table table-striped table-inverse table-responsive tblskill " >
+                        <table class="table table-striped table-inverse table-responsive tblskill ">
                           <thead class="thead-inverse">
                             <tr>
                               <th class=" text-center">Name</th>
@@ -475,8 +478,8 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                                   <div contenteditable="true" class='ceditskill' id="skill_<?php echo $row[0] ?>"> <?php echo $row[2] ?> </div>
                                 </td>
                                 <td class="text-center">
-                                <i class="fas fa-trash-alt deleteskill" id="deleteskill_<?php echo $row[0] ?>"></i>
-                              </td>
+                                  <i class="fas fa-trash-alt deleteskill" id="deleteskill_<?php echo $row[0] ?>"></i>
+                                </td>
                               </tr>
                             <?php } ?>
                           </tbody>
@@ -484,12 +487,12 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
                       </div>
                       <div class="skills-items skills-progressbar">
                         <?php foreach ($workskill as $row) { ?>
-                          <div class="skill-item">
-                            <h4 id="skname_<?php echo $row[0] ?>"><?php echo $row[1] ?></h4>
+                          <div class="skill-item skilli_<?php echo $row[0] ?>">
+                            <h4 id="sknname_<?php echo $row[0] ?>"><?php echo $row[1] ?></h4>
                             <div class="progress">
                               <div class="progress-bar wow fadeInLeft" id="raskill_<?php echo $row[0] ?>" data-progress="95%" style="width: <?php echo $row[2] . "%" ?>;" data-wow-duration="1.5s" data-wow-delay="1.2s"> </div>
                             </div>
-                            <span id="skskill_<?php echo $row[0] ?>"><?php echo $row[2] . "%" ?></span>
+                            <span id="skrskill_<?php echo $row[0] ?>"><?php echo $row[2] . "%" ?></span>
                           </div>
                         <?php } ?>
                       </div>
@@ -516,282 +519,76 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
           </div>
 
           <div class="section-content">
-            <div class="filter-tabs">
-              <button class="fil-cat" data-rel="all"><span>0</span> All</button>
-              <button class="fil-cat" data-rel="photography"><span>05</span> Websites</button>
-              <button class="fil-cat" data-rel="web-design"><span>07</span> Decorations</button>
-              <button class="fil-cat" data-rel="branding"><span>12</span> Business Logo</button>
-            </div>
-
             <div class="portfolio-grid portfolio-trigger" id="portfolio-page">
-              <div class="label-portfolio"><span class="rotated-sub">project</span><span class="project-count">8</span></div>
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding photography all">
-                  <div class="portfolio-img">
-                    <img src="images/portfolio/portfolio-img-1.jpeg" class="img-responsive" alt="">
+              <button id="addproject" name="" class="btn btn-primary mb-5 ml-4 mt-5">Add</button>
+              <div class="formaddpro">
+                <form action="" method="POST" role="form" id="formaddpro" class="col-md-6 mt-3" onsubmit="return false">
+                  <div class="form-group">
+                    Title: <input type="text" name="title_pro" id="title_pro" placeholder="Title" class=" ml-3 " value="">
                   </div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Company Branding</a></h4>
-                    <p class="meta">Branding + Photography</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-1.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
+                  <div class="form-group">
+                    Content: <textarea type="text" name="content_pro" id="content_pro" placeholder="Content" class=" ml-3" value="" style="height: 120px;"></textarea>
+                  </div>
+                  <div class="form-group">
+                    Image: <input id="imageproject" type="file" name="image_pro" required="" />
+                  </div>
+                  <div class="form-group">
+                    <button id="saveproject" name="" class="btn btn-primary mb-5 ml-5">Save</button>
+                    <button id="backproject" name="" class="btn btn-danger mb-5 ml-2">Back</button>
+                  </div>
+                </form>
+
+              </div>
+
+              <div class="row projectss">
+                <?php foreach ($projects as $row) { ?>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding photography all project_<?php echo $row[0] ?>">
+                    <div class="portfolio-img">
+                      <img src="../<?php echo $row[3] ?>" class="img-responsive" alt="">
+                    </div>
+                    <div class="portfolio-data ">
+                      <h4><a href="#"><?php echo $row[1] ?></a></h4>
+                      <p class="meta"><?php echo $row[2] ?></p>
+                      <button class="btn btn-primary mt-5 ml-5 delpro" id="delpro_<?php echo $row[0] ?>" name="" >Delete</button>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item web-design branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-2.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Home Decoration</a></h4>
-                    <p class="meta">Web design + Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-2.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-3.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Photography</a></h4>
-                    <p class="meta">Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-3.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item web-design branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-4.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Furniture branding</a></h4>
-                    <p class="meta">Web design + Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-4.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-5.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Flowers power</a></h4>
-                    <p class="meta">Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-5.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item web-design branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-6.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Furniture branding</a></h4>
-                    <p class="meta">Web design + Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-6.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-7.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Flowers power</a></h4>
-                    <p class="meta">Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-7.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item web-design branding all">
-                  <div class="portfolio-img"><img src="images/portfolio/portfolio-img-8.jpeg" class="img-responsive" alt=""></div>
-                  <div class="portfolio-data">
-                    <h4><a href="portfolio-single.html">Furniture branding</a></h4>
-                    <p class="meta">Web design + Branding</p>
-                    <div class="portfolio-attr">
-                      <a href="portfolio-single.html"><i class="lnr lnr-link"></i></a>
-                      <a href="images/portfolio/portfolio-img-8.jpeg" data-rel="lightcase:gal" title="Image Caption"><i class="lnr lnr-move"></i></a>
-                    </div>
-                  </div>
-                </div>
+                <?php } ?>
               </div>
             </div>
           </div>
         </div>
       </section>
       <!-- /Portfolio Subpage -->
-
-      <!-- Blog Subpage -->
-      <section id="blog" class="sub-page">
-        <!-- <div class="sub-page-inner">
-          <div class="section-title">
-            <div class="main-title">
-              <div class="title-main-page">
-                <h4>Blog</h4>
-                <p>We share our news and blog</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-content">
-            <div class="row blog-grid-flex">
-              <div class="col-md-4 col-sm-6 blog-item-quote blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="fas fa-quote-right"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"><img src="images/blog/1.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-content">
-                    <div>
-                      <h4><a href="blog-single.html">Design is not just what it looks like .Design is how it works .</a></h4>
-                      <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                      <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-8 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-picture"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/2.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">The new clear bolg </a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-film-play"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/3.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">Content builder posts</a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-picture"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/4.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">Transitions In Design</a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-picture"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/5.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">Comfort classy outfits</a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-film-play"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/6.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">Recent trends in story</a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-music-note"></i></span></div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/7.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                  <div class="article-content">
-                    <h4><a href="blog-single.html">Social media websites</a></h4>
-                    <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority .</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-6 blog-item-quote blog-item">
-                <div class="blog-article">
-                  <div class="post-format"> <span class="post-format-icon"><i class="lnr lnr-picture"></i></span> </div>
-                  <div class="comment-like"> <span><i class="fas fa-comment" aria-hidden="true"></i> 30</span> <span><i class="fas fa-heart" aria-hidden="true"></i> 15</span> </div>
-                  <div class="article-img">
-                    <a href="blog-single.html"> <img src="images/blog/8.jpeg" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="article-content">
-                    <div>
-                      <h4><a href="blog-single.html">Design is not just what it looks like .Design is how it works .</a></h4>
-                      <div class="meta"> <span><i>Feb</i> 16,2016</span> <span><i>In</i> <a href="#">Shopping</a></span> <span><i>Tags</i> <a href="#">Trends</a></span> </div>
-                      <div class="article-link"> <a href="blog-single.html"><i class="lnr lnr-arrow-right"></i></a> </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pagination-nav nav-center">
-              <a href="#" class="btn btn-prev"><i class="lnr lnr-arrow-left"></i> prev</a>
-              <a href="#" class="btn btn-next">next <i class="lnr lnr-arrow-right"></i></a>
-            </div>
-          </div>
-        </div> -->
-      </section>
-      <!-- /Blog Subpage -->
-
       <!-- Contact Subpage -->
       <section id="contact" class="sub-page">
         <div class="sub-page-inner">
           <div class="section-title">
             <div class="main-title">
               <div class="title-main-page">
-                <h4>Contact</h4>
+                <h4>Message</h4>
               </div>
             </div>
           </div>
           <!-- Contact  -->
           <div class="container">
-            <div class="row">
-              <div class="col-md-6" id="cardmess">
-                <div class="card text-white bg-primary">
-                  <img class="card-img-top" src="holder.js/100px180/" alt="">
-                  <div class="card-body">
-                    <h4 class="card-title">Name: <?php echo $message[1] . "<br>Email: " . $message[2] ?></h4>
-                    <p class="card-text">Message: <?php echo $message[3] ?></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <table class="table table-striped table-inverse table-responsive">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Content</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <?php foreach($message as $row){ ?>
+                  <tr class="mess" id="mess_<?php echo $row[0] ?>">
+                    <td scope="row"><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php echo $row[3] ?></td>
+                  </tr>
+                  <?php } ?>
+                </tbody>
+            </table>
           </div>
           <!-- /Contact -->
           <!-- Social Media -->
@@ -855,10 +652,6 @@ $age = date_diff(date_create($about_me[3]), date_create('today'))->y;
             <!-- /Contact info -->
 
             <!-- Map Container -->
-            <div class="contact-map pt-50">
-              <!-- GOOGLE MAP -->
-              <div id="google-map"></div>
-            </div>
             <!-- /Map Container -->
           </div>
           <!-- /Contact Details -->

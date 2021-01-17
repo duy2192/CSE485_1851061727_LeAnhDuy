@@ -63,17 +63,17 @@ jQuery(document).ready(function () {
         e.stopPropagation();
         if (!$(this).hasClass('active')) {
             $(this).addClass('active');
-            $('.header').animate({'margin-left': 285}, 300);
+            $('.header').animate({ 'margin-left': 285 }, 300);
         } else {
             $(this).removeClass('active');
-            $('.header').animate({'margin-left': 0}, 300);
+            $('.header').animate({ 'margin-left': 0 }, 300);
         }
         return false;
     });
 
     $('.header a').on("click", function (e) {
         $('.responsive-icon').removeClass('active');
-        $('.header').animate({'margin-left': 0}, 300);
+        $('.header').animate({ 'margin-left': 0 }, 300);
 
     });
     /*======================================
@@ -173,8 +173,7 @@ jQuery(document).ready(function () {
      AJAX Contact Form
      ======================================*/
 
-    $("#contact-form").on("submit", function (e)
-    {
+    $("#contact-form").on("submit", function (e) {
         $('#show_contact_msg').html('<div class=loading>Sending Message..</div>');
         var name = $('#ct-name').val();
         var email = $('#ct-email').val();
@@ -185,61 +184,23 @@ jQuery(document).ready(function () {
             ctcomment: comment,
         }
         $.ajax(
-                {
-                    url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/contact-message.php',
-                    type: "POST",
-                    data: data,
-                    success: function (res) {
-                        if (res === '1') {
-                            $('#show_contact_msg').html('<div class=gen><i class="fa fa-smile-o" aria-hidden="true"></i> Thank you very much, We will notify you when we lunch</div>');
-                            $("#contact-form")[0].reset();
-                        }
-
-                        else {
-                            $('#show_contact_msg').html('<div class=err><i class="fa fa-frown-o" aria-hidden="true"></i> Error</div>');
-                        }
+            {
+                url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/contact-message.php',
+                type: "POST",
+                data: data,
+                success: function (res) {
+                    if (res == '1') {
+                        $('#show_contact_msg').html('<div class=gen><i class="fa fa-smile-o" aria-hidden="true"></i> Thank you very much, We will notify you when we lunch</div>');
+                        $("#contact-form")[0].reset();
                     }
-                });
+
+                    else {
+                        $("#show_contact_msg').html('<div class=err><i class='fa fa-frown-o' aria-hidden='true'></i> Error!</div>");
+                    }
+                }
+            });
         e.preventDefault();
     });
-
-    /*======================================
-     Google Map
-     ======================================*/
-    if ($('#google-map').length > 0) {
-        //set your google maps parameters
-        var latitude = 51.5255069,
-                longitude = -0.0836207,
-                map_zoom = 14;
-
-        //google map custom marker icon 
-        var marker_url = 'images/map-marker.png';
-
-        //we define here the style of the map
-        var style = [{"featureType": "landscape", "stylers": [{"saturation": -100}, {"lightness": 65}, {"visibility": "on"}]}, {"featureType": "poi", "stylers": [{"saturation": -100}, {"lightness": 51}, {"visibility": "simplified"}]}, {"featureType": "road.highway", "stylers": [{"saturation": -100}, {"visibility": "simplified"}]}, {"featureType": "road.arterial", "stylers": [{"saturation": -100}, {"lightness": 30}, {"visibility": "on"}]}, {"featureType": "road.local", "stylers": [{"saturation": -100}, {"lightness": 40}, {"visibility": "on"}]}, {"featureType": "transit", "stylers": [{"saturation": -100}, {"visibility": "simplified"}]}, {"featureType": "administrative.province", "stylers": [{"visibility": "off"}]}, {"featureType": "water", "elementType": "labels", "stylers": [{"visibility": "on"}, {"lightness": -25}, {"saturation": -100}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"hue": "#ffff00"}, {"lightness": -25}, {"saturation": -97}]}];
-
-        //set google map options
-        var map_options = {
-            center: new google.maps.LatLng(latitude, longitude),
-            zoom: map_zoom,
-            panControl: true,
-            zoomControl: true,
-            mapTypeControl: true,
-            streetViewControl: true,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            scrollwheel: false,
-            styles: style,
-        }
-        //inizialize the map
-        var map = new google.maps.Map(document.getElementById('google-map'), map_options);
-        //add a custom marker to the map				
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(latitude, longitude),
-            map: map,
-            visible: true,
-            icon: marker_url,
-        });
-    }
 
     /*======================================
      WOW Animation
@@ -259,4 +220,3 @@ jQuery(document).ready(function () {
 
 
 });
- 

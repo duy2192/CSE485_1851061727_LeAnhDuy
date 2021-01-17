@@ -418,7 +418,7 @@ $(document).ready(function () {
                     $('#editskill').show()
                     $('#addskill').show()
                     alert('Success!')
-                    $('.skills-items').append(" <div class='skill-item'><h4>"+$('#name_skill').val()+"</h4><div class='progress'><div class='progress-bar wow fadeInLeft' data-progress='95%' style='width: "+$('#name_skill').val()+"%' data-wow-duration='1.5s' data-wow-delay='1.2s'> </div></div><span>"+$('#name_skill').val()+"%</span></div> ")
+                    $('.skills-items').append(" <div class='skill-item'><h4>"+$('#name_skill').val()+"</h4><div class='progress'><div class='progress-bar wow fadeInLeft' data-progress='95%' style='width: "+$('#ratio').val()+"%' data-wow-duration='1.5s' data-wow-delay='1.2s'> </div></div><span>"+$('#ratio').val()+"%</span></div> ")
                     $('#tbleditskill').append(" <tr id='rowski_<?php echo $row[0] ?>'><td scope='row'><div contentEditable='true' class='editskill' id='name_"+res+"'> "+$('#name_skill').val()+" </div></td><td><div contenteditable='true' class='editskill' id='skill_"+res+"'> "+$('#ratio').val()+" </div></td></tr> ")
                     $('#name_skill').val('')
                     $('#ratio').val('')
@@ -456,8 +456,9 @@ $(document).ready(function () {
             data: { field: field_name, value: value, id: edit_id },
             success: function (res) {
                 if (res == '1') {
-                    $("#sk" + id + "").html(value);
-                    $("#ra" + id + "").attr("",);
+                    $("#skn" + id + "").html(value);
+                    $("#skr" + id + "").html(value+"%");
+                    $("#ra" + id + "").css("width",value+"%")
                 }
                 else {
                     alert('Error')
@@ -465,4 +466,125 @@ $(document).ready(function () {
             }
         });
     })
+
+    $('.deleteskill').click(function(){
+        var id = this.id;
+        var delid = id.split("_")[1];
+        $.ajax({
+            url: "http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/delete-skills.php?id="+delid+"",
+            type: 'get',
+            success: function (res) {
+                if (res == '1') {
+                    $('.skilli_'+delid+'').remove()
+                    $("#rowski_" + delid + "").remove()
+                }
+                else {
+                    alert('Error')
+                }
+            }
+        });
+    })
+
+    $('.formaddpro').hide()
+     $('#addproject').click(function(){
+        $('.formaddpro').show(500)
+        $('#addproject').hide()
+     })
+
+     $('#backproject').click(function(){
+        $('.formaddpro').hide(500)
+        $('#addproject').show()
+     })
+
+     $('#saveproject').click(function(){
+         if($('#title_pro').val()==''||$('#content_pro').val()=='' ){
+             alert('Please enter your information!')
+             return false
+         }
+         else {
+        //Lấy ra files
+        var filedata = $('#imageproject').prop('files')[0];
+        //lấy ra kiểu file
+        var typedata = filedata.type;
+        //Xét kiểu file được upload
+        var match = ["image/jpeg", "image/png", "image/jpg",];
+        //kiểm tra kiểu file
+        if (typedata == match[0] || typedata == match[1] || typedata == match[2]) {
+            //khởi tạo đối tượng form data
+            var form_data = new FormData();
+            //thêm files vào trong form data
+            form_data.append('file', filedata);
+            $.ajax({
+                url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/add-projects_image.php',
+                dataType: 'text',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function (res) {
+                    if(res=='Error!'){
+                        alert(res)
+                    }
+                    else{
+                        $.ajax({
+                            url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/add-projects.php',
+                            dataType: 'text',
+                            data: {
+                                title: $('#title_pro').val(),
+                                content:$('#content_pro').val(),
+                                id:res
+                            },
+                            type: 'post',
+                            success: function (res1) {
+                                if (res1=='0' || res1 =='2') {
+                                    alert('Error!')
+                                } else {
+                                    alert('Success!')
+                                    $('.projectss').append(" <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 portfolio-item branding photography all project_"+res+"'><div class='portfolio-img'><img src='../"+res1+"' class='img-responsive' alt=''></div><div class='portfolio-data '><h4><a href='#'>"+$('#title_pro').val()+"</a></h4><p class='meta'>"+$('#content_pro').val()+"</p><button class='btn btn-primary mt-5 ml-5 delpro' id='delpro_"+res+"' name='' >Delete</button></div></div> ")
+                                    $('#title_pro').val('')
+                                    $('#content_pro').val('')
+                                    $('#imageproject').val('')
+                                    $('.formaddpro').hide(500)
+                                    $('#addproject').show()
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } 
+        else {
+            alert('Chỉ được upload file ảnh');
+        } 
+    }
+     })
+
+     $('.delpro').click(function(){
+        if (confirm('Are you sure?') == true) {
+            var id = this.id;
+            var split_id = id.split("_");
+            var del = split_id[1];
+            $.ajax({
+                url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/delete-projects.php?id=' + del + '',
+                type: 'get',
+                success: function (res) {
+                    if (res == '1') {
+                        $('.project_'+del).remove()
+                    }
+                    else {
+                        alert('Error')
+                    }
+                }
+            })
+        }
+        else {
+            return false;
+        }
+     })
+
+     
+
+
+    
 })

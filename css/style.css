@@ -1533,48 +1533,6 @@ span.typed {
 #10. Portfolio SubPage
 ============================================================================= */
 
-.filter-tabs {
-    display: table;
-    margin: 50px auto 100px;
-}
-
-.filter-tabs button span {
-    display: block;
-    font-size: 13px;
-    margin-bottom: 7px;
-}
-
-.filter-tabs button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: 0 none;
-    color: #6b6b6b;
-    font-size: 16px;
-    margin: 0 20px;
-    padding: 0 15px;
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
-
-.filter-tabs .fil-cat[data-rel="all"] span{
-    visibility: hidden;
-}
-
-.filter-tabs .active-filter, .filter-tabs .fil-cat:focus, .filter-tabs .fil-cat:hover {
-    color: #11d6f0;
-    transform: scale(1.08);
-    border: none !important;
-    outline: none !important;
-    cursor: pointer;
-}
-
-.filter-tabs .active-filter span {
-    transform: scale(0.9);
-}
-
 .label-portfolio {
     background-color: #ffffff;
     left: 50px;
@@ -2188,9 +2146,6 @@ textarea{
     -moz-box-shadow: 0 12px 17px rgba(0,0,0,.12);
     -o-box-shadow: 0 12px 17px rgba(0,0,0,.12);
     box-shadow: 0 12px 17px rgba(0,0,0,.12);
-}
-#google-map{
-    height: 350px;
 }
 /*12.3 Social Media*/
 
