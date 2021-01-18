@@ -549,7 +549,7 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
                     <div class="portfolio-data ">
                       <h4><a href="#"><?php echo $row[1] ?></a></h4>
                       <p class="meta"><?php echo $row[2] ?></p>
-                      <button class="btn btn-primary mt-5 ml-5 delpro" id="delpro_<?php echo $row[0] ?>" name="" >Delete</button>
+                      <button class="btn btn-primary mt-5 ml-5 delpro" id="delpro_<?php echo $row[0] ?>" name="">Delete</button>
                     </div>
                   </div>
                 <?php } ?>
@@ -570,6 +570,23 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
             </div>
           </div>
           <!-- Contact  -->
+
+          <!-- <form action="" method="POST" role="form" id="formaddpro" class="col-md-6 mt-3" onsubmit="return false">
+            <div class="row">
+              <div class="form-group col-md-8">
+                Search: <input type="text" name="" id="search_mess" placeholder="Search" class=" ml-3 " value="" width="250px">
+              </div>
+              <div class="form-group col-md-4 mt-3">
+                <select id="option_mess" style="width:100px">
+                  <option>--</option>
+                  <option>Name</option>
+                  <option>Email</option>
+                </select>
+              </div>
+
+            </div>
+
+          </form> -->
           <div class="container">
             <table class="table table-striped table-inverse table-responsive">
               <thead class="thead-inverse">
@@ -578,16 +595,16 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
                   <th>Email</th>
                   <th>Content</th>
                 </tr>
-                </thead>
-                <tbody>
-                  <?php foreach($message as $row){ ?>
+              </thead>
+              <tbody>
+                <?php foreach ($message as $row) { ?>
                   <tr class="mess" id="mess_<?php echo $row[0] ?>">
                     <td scope="row"><?php echo $row[1] ?></td>
                     <td><?php echo $row[2] ?></td>
                     <td><?php echo $row[3] ?></td>
                   </tr>
-                  <?php } ?>
-                </tbody>
+                <?php } ?>
+              </tbody>
             </table>
           </div>
           <!-- /Contact -->
@@ -595,8 +612,8 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
           <div class="pt-50">
             <div class="social-media-block">
               <ul class="social-media-links">
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-github"></i></a></li>
+                <li><a href="https://www.facebook.com/magicboyyyyyy/"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://github.com/duy2192"><i class="fab fa-github"></i></a></li>
                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                 <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
                 <li><a href="#"><i class="fab fa-instagram"></i></a></li>
@@ -678,8 +695,6 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
   <script src="../js/jquery.isotope.min.js"></script>
   <!-- Wow Animation -->
   <script src="../js/wow.min.js"></script>
-  <!-- Map -->
-  <script src="https://maps.google.com/maps/api/js?key=AIzaSyBkdsK7PWcojsO-o_q2tmFOLBfPGL8k8Vg&amp;language=en"></script>
   <!-- Main Script -->
   <script src="../js/script.js"></script>
   <script src="js/script.js"></script>

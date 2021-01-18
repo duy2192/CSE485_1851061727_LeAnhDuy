@@ -312,8 +312,8 @@ $(document).ready(function () {
                     $('#saveedu').hide(500);
                     $('#backedu').hide(500);
                     alert('Success');
-                    $('.main-timeline').append(" <div class='timeline currecnt'><div class='timeline-icon'><img src='images/resume/1.png' alt=''></div><div class='timeline-content'><span class='date'>" + $('#title_edu').val() + "</span><h5 class='title'>" + $('#content_edu').val() + "</h5><p class='description'>" + $('#time_edu').val() + "</p></div></div>  ")
-                    $('#tbleditedu').append("<tr id='rowedu_" + res + "'><td><div contentEditable='true' class='editedu' id='title_" + res + "'> " + $('#title_edu').val() + " </div></td><td><div contenteditable='true' class='editedu' id='content_" + res + "'> " + $('#content_edu').val() + " </div></td><td><div contenteditable='true' class='editedu' id='time_" + res + "'> " + $('#time_edu').val() + " </div></td><td class='text-center'><i class='fas fa-trash-alt deleteedu' id='deleteedu_<?php echo $row[0] ?>'></i></td></tr> ")
+                    $('.main-timeline').append(" <div class='timeline currecnt'><div class='timeline-icon'><img src='../images/resume.png' alt=''></div><div class='timeline-content'><span class='date'>" + $('#time_edu').val() + "</span><h5 class='title'>" + $('#title_edu').val() + "</h5><p class='description'>" + $('#content_edu').val() + "</p></div></div>  ")
+                    $('#tbleditedu').append("<tr id='rowedu_" + res + "'><td><div contentEditable='true' class='editedu' id='title_" + res + "'> " + $('#title_edu').val() + " </div></td><td><div contenteditable='true' class='editedu' id='content_" + res + "'> " + $('#content_edu').val() + " </div></td><td><div contenteditable='true' class='editedu' id='time_" + res + "'> " + $('#time_edu').val() + " </div></td><td class='text-center'><i class='fas fa-trash-alt deleteedu' id='deleteedu_"+res+"'></i></td></tr> ")
                     $('#title_edu').val('')
                     $('#content_edu').val('')
                     $('#time_edu').val('')
@@ -583,7 +583,20 @@ $(document).ready(function () {
         }
      })
 
-     
+    //  $('#search_mess').keyup(function(){
+    //     $.ajax({
+    //         url: 'http://localhost/CSE485_1851061727_LeAnhDuy/admin/controller/search-message.php',
+    //         type: 'post',
+    //         dataType: "text",
+    //         data:{
+    //             option: $('#option_mess').val(),
+    //             search: $('#search_mess').val()
+    //         },
+    //         success: function (res) {
+    //            alert(res[0][2])
+    //         }
+    //     })
+    //  })
 
 
     

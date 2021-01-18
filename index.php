@@ -310,7 +310,6 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
                     <div class="portfolio-data ">
                       <h4><a href="#"><?php echo $row[1] ?></a></h4>
                       <p class="meta"><?php echo $row[2] ?></p>
-                      <button class="btn btn-primary mt-5 ml-5 delpro" id="delpro_<?php echo $row[0] ?>" name="" >Delete</button>
                     </div>
                   </div>
                 <?php } ?>
@@ -355,8 +354,8 @@ $projects = mysqli_fetch_all(mysqli_query($conn, $sql6));
             <div class="pt-50">
               <div class="social-media-block">
                 <ul class="social-media-links">
-                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                  <li><a href="#"><i class="fab fa-github"></i></a></li>
+                  <li><a href="https://www.facebook.com/magicboyyyyyy/"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="https://github.com/duy2192"><i class="fab fa-github"></i></a></li>
                   <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                   <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
                   <li><a href="#"><i class="fab fa-instagram"></i></a></li>
